@@ -1,0 +1,48 @@
+<title>Flow name</title>
+<!--
+  Report artifact skeleton. Keep the four section ids; make report-check looks for them.
+  Load the `artifact-design` and `dataviz` skills before filling this in.
+  Numbers live in data/*.json and are drawn as charts; prose carries no numbers.
+-->
+<style>
+  :root { --bg:#fafaf7; --fg:#1b1b1b; --muted:#666; --line:#e2e2dd; --accent:#3b5bdb; }
+  body { background:var(--bg); color:var(--fg); max-width:56rem; margin:0 auto; padding-block:2rem; padding-inline:1.25rem; line-height:1.55; }
+  h1 { font-size:1.6rem; margin:0 0 .25rem; } h2 { font-size:1.15rem; margin-top:2.25rem; border-bottom:1px solid var(--line); padding-bottom:.25rem; }
+  .flow { color:var(--muted); margin-bottom:1.5rem; }
+  figure { margin:1.25rem 0; } figcaption { font-size:.9rem; color:var(--muted); }
+  .obs, .interp, .review { padding:1rem; border:1px solid var(--line); border-radius:6px; }
+  .review { background:#f3f4f8; } .tag { font-size:.75rem; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); }
+  footer { margin-top:2.5rem; font-size:.85rem; color:var(--muted); }
+</style>
+
+<h1>Flow name</h1>
+<p class="flow">One sentence: the question this flow answers, in words anyone can follow.</p>
+
+<section id="figures">
+  <!-- one figure per question; the title states the answer; inline SVG or a pinned CDN chart lib -->
+  <figure>
+    <figcaption>Figure 1. What is visible here, in one sentence.</figcaption>
+  </figure>
+</section>
+
+<h2>What the data show</h2>
+<section id="observations" class="obs">
+  <p class="tag">observations only, no interpretation</p>
+  <!-- each sentence names a figure and states what is visible in it -->
+</section>
+
+<h2>What it might mean</h2>
+<section id="interpretation" class="interp">
+  <p class="tag">interpretation, written after the second opinion below</p>
+  <!-- what it might mean, what would change our mind, what to run next; quote where the other agent agrees or disagrees -->
+</section>
+
+<h2>Second opinion</h2>
+<section id="second-opinion" class="review">
+  <p class="tag">verbatim from REVIEW.md — agent: ___, date: ___</p>
+</section>
+
+<footer id="provenance">
+  Experiments: <a href="#">A-1</a>. Receipts: <code>experiments/A/A-1-.../receipts/&lt;run&gt;/</code>. Built from commit <code>abcdef0</code>.
+  Setup details (seeds, data, hyper-parameters) live in each experiment's manifest and RESULT.md.
+</footer>

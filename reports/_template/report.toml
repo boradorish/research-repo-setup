@@ -1,0 +1,8 @@
+# Copy to reports/<slug>/report.toml. The slug names a flow, not an experiment.
+slug = "flow-name"
+flow = ""                    # one plain sentence: the question this flow answers
+experiments = ["A-1"]        # members, in the order the story reads
+author_agent = "claude"      # claude | codex | gemini — who wrote index.html
+status = "draft"             # draft | published
+artifact_url = ""            # filled after publishing with the Artifact tool
+built_from_commit = ""       # git commit of this repo the receipts were read at

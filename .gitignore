@@ -1,0 +1,19 @@
+# generated artifacts never enter git
+outputs
+outputs/
+*.ckpt
+*.pt
+*.safetensors
+wandb/
+# env and caches
+.env
+.venv/
+__pycache__/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+*.egg-info/
+# scratch
+.DS_Store
+# Overleaf clone (paper/overleaf.toml clone_dir)
+paper/overleaf/

@@ -1,0 +1,23 @@
+% Agent edit macros. Copy this file into the Overleaf project and add
+%   \input{agentmacros}
+% to the preamble once. Every agent-written passage is wrapped in its macro;
+% every replaced human passage is kept in the matching ...DEL macro.
+%
+% Toggle: \agentmarkuptrue shows coloured markup for review; \agentmarkupfalse
+% renders inserted text plainly and hides deletions (camera-ready).
+\usepackage{xcolor}
+\newif\ifagentmarkup
+\agentmarkuptrue
+
+\newcommand{\agentins}[3]{\ifagentmarkup\textcolor{#1}{#3}\marginpar{\tiny\textcolor{#1}{#2}}\else#3\fi}
+\newcommand{\agentdel}[3]{\ifagentmarkup\textcolor{#1}{\sout{#3}}\marginpar{\tiny\textcolor{#1}{#2 del}}\else\fi}
+\usepackage[normalem]{ulem}
+
+\newcommand{\CLAUDE}[1]{\agentins{violet}{claude}{#1}}
+\newcommand{\CLAUDEDEL}[1]{\agentdel{violet}{claude}{#1}}
+\newcommand{\CODEX}[1]{\agentins{teal}{codex}{#1}}
+\newcommand{\CODEXDEL}[1]{\agentdel{teal}{codex}{#1}}
+\newcommand{\GEMINI}[1]{\agentins{blue}{gemini}{#1}}
+\newcommand{\GEMINIDEL}[1]{\agentdel{blue}{gemini}{#1}}
+\newcommand{\AGENT}[1]{\agentins{gray}{agent}{#1}}
+\newcommand{\AGENTDEL}[1]{\agentdel{gray}{agent}{#1}}

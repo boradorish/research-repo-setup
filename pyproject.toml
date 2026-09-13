@@ -1,0 +1,39 @@
+[project]
+name = "myproject"
+version = "0.1.0"
+description = "Research project scaffold. Rename via scripts/init_repo.sh."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "tomli-w>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+]
+hf = [
+    "huggingface_hub>=0.25",
+]
+gpu = [
+    # add torch etc. here; keep the base install CPU-runnable so tests run anywhere
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/myproject"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "scripts", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

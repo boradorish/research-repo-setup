@@ -1,0 +1,47 @@
+id = "A-0"
+title = "Pipeline smoke: local and remote path, receipt round trip"
+status = "registered"
+evidence = "smoke"
+question = "The registered-manifest to receipt path completes end to end on this checkout and on the reservation pod."
+hypothesis = ""
+task = "smoke"
+entrypoint = "scripts/train.py"
+config = "configs/base.toml"
+seeds = [0]
+comparison_axes = []
+decision_rule = ""
+claim_ledger_rows = []
+reviewed_by = ""
+
+[overrides]
+"train.steps" = 3
+
+[storage]
+hf_repo = ""              # models / datasets go here (org/name); make hf-push
+max_tracked_mb = 5        # tracked artifacts larger than this stay on the server (REMOTE.md)
+
+[environment]
+python = "3.12"
+lock = "uv.lock"
+image = ""
+determinism = "seeded python RNG only; no GPU numerics"
+
+[compute]
+gpus = 1
+gpu_type = "any"
+hours = 0.25
+
+[[expected_artifacts]]
+path = "receipt.json"
+track = true
+
+[[expected_artifacts]]
+path = "smoke.json"
+track = true
+
+# ---- ledger fields (drive experiments/LOG.md via `make log`) ----
+verdict = "pending"        # pending | success | failure | inconclusive
+summary = ""               # one line, affirmative, written after reading the receipt
+# [[relations]]
+# to = "A-1"
+# kind = "extends"         # extends | controls | contradicts | reproduces | motivates

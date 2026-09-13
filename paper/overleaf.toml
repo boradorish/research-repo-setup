@@ -1,0 +1,22 @@
+# Overleaf policy values. Procedure and rules: paper/OVERLEAF.md.
+# The owner changes `level` by saying so in the conversation; the agent then runs
+#   make overleaf-level LEVEL=<read|bronze|silver|gold|platinum>
+# and never edits this value on its own initiative.
+
+project_url = ""            # empty => every overleaf command stops with "Overleaf 프로젝트 링크 줘!"
+level = "read"              # read | bronze | silver | gold | platinum
+clone_dir = "paper/overleaf"   # gitignored local clone of the Overleaf project
+
+# Path classes inside the Overleaf project (globs, relative to the project root).
+agent_dir = "agent"                                   # bronze+: drafts, never \input'd by the paper
+figure_globs = ["figures/**", "tables/**"]           # silver+
+appendix_globs = ["appendix*.tex", "sections/appendix*.tex", "appendix/**"]   # silver+
+front_matter_globs = ["title*.tex", "abstract*.tex", "main.tex", "*.sty"]   # platinum only: agent drafts the paper's shape
+protected_globs = [                                   # never, at any level
+  "author*.tex", "ack*.tex", "acknowledg*.tex",
+  "*.cls", "*.bst", "*.bbl",
+]
+# Everything else that ends in .tex is body text: gold and above.
+
+# Agent macros (defined in paper/agentmacros.tex; the human adds \input{agentmacros} once).
+macros = ["CLAUDE", "CODEX", "GEMINI", "AGENT"]

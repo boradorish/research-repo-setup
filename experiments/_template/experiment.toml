@@ -1,0 +1,56 @@
+# Copy to experiments/<S>/<S>-<N>-short-name/experiment.toml (id "<S>-<N>", e.g. A-1) and fill every field.
+# Register (commit) before writing any code or config for the run.
+id = "A-1"
+title = ""
+status = "draft"            # draft | registered | running | complete | stopped | failed
+evidence = "exploratory"    # smoke | exploratory | claim
+question = ""               # affirmative: "<estimand> under <construction> lies in <region>"
+hypothesis = ""             # expected state and why; not a promised outcome
+task = "smoke"              # module under src/myproject/tasks/
+entrypoint = "scripts/train.py"
+config = "configs/base.toml"
+seeds = [0]
+comparison_axes = []        # e.g. ["seed", "model.width"]
+decision_rule = ""          # claim tier only
+claim_ledger_rows = []
+reviewed_by = ""            # claim tier only
+
+[overrides]
+# deltas on configs/base.toml only, dotted keys allowed: "train.steps" = 10
+
+[storage]
+hf_repo = ""              # models / datasets go here (org/name); make hf-push
+max_tracked_mb = 5        # tracked artifacts larger than this stay on the server (REMOTE.md)
+
+[compute]
+gpus = 1
+gpu_type = ""              # e.g. "A100-80GB"; required non-smoke (numerics depend on it)
+hours = 1.0
+
+# ---- reproducibility: fixed BEFORE the run; the validator refuses a non-smoke manifest without these ----
+[[inputs]]                 # one block per dataset / checkpoint / parent artifact
+name = ""
+kind = "dataset"           # dataset | checkpoint | artifact
+identity = ""              # the identity it already carries: hf:<org>/<name>@<revision>, sha256, commit, run id
+
+[environment]
+python = "3.12"            # matches .python-version
+lock = "uv.lock"           # dependency identity = the committed lock at the run's commit
+image = ""                 # pod container image tag, if the reservation uses one
+determinism = ""           # e.g. "seeded; cuDNN non-deterministic; tolerance 1e-3 on eval loss"
+
+[[expected_artifacts]]
+path = "receipt.json"
+track = true
+
+# [[outcome_branches]]      # claim tier: one per affirmative observed state
+# name = "A"
+# state = ""
+
+# ---- ledger fields (drive experiments/LOG.md via `make log`) ----
+verdict = "pending"        # pending | success | failure | inconclusive
+summary = ""               # one line, affirmative, written after reading the receipt
+
+# [[relations]]            # semantic edges for the experiment graph
+# to = "A-0"
+# kind = "extends"         # extends | controls | contradicts | reproduces | motivates

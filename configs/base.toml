@@ -1,0 +1,21 @@
+# Authoritative base config. Every parameter with its default.
+# Experiments carry deltas only, in their manifest's [overrides] table.
+
+[model]
+name = "toy"
+width = 64
+depth = 2
+
+[data]
+name = "synthetic"
+n_train = 1024
+n_eval = 256
+
+[train]
+steps = 100
+batch_size = 32
+lr = 1e-3
+device = "auto"        # auto | cpu | cuda
+
+[eval]
+every = 50
