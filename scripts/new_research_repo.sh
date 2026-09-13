@@ -58,7 +58,8 @@ from pathlib import Path
 name, question = sys.argv[1], sys.argv[2]
 r = Path("README.md"); s = r.read_text()
 s = s.replace("# <Project name>", f"# {name}")
-s = re.sub(r"> Template state\..*?\n(> .*\n)*", "> Agents: read `AI_GUIDELINE.md` first.\n", s, count=1)
+s = re.sub(r"> Template state\..*?\n(> .*\n)*", "> Agents: read `AI_GUIDELINE.md` first, then run `make doctor`.\n", s, count=1)
+s = re.sub(r"## Creating a research repo from this template\n.*?(?=\n## )", "", s, count=1, flags=re.S)
 if question:
     s = s.replace("<One affirmative sentence naming the phenomenon and the estimand.>", question)
 r.write_text(s)
@@ -72,6 +73,9 @@ if question:
     s = s.replace("- [ ] Rewrite `README.md` and `experiments/A/PREMISE.md` with the research question.\n",
                   "- [ ] Sharpen the research question in `README.md` and `experiments/A/PREMISE.md` (estimand, construction).\n")
 t.write_text(s)
+m = Path("Makefile"); s = m.read_text()
+s = re.sub(r"\ninstall-cli:.*?(?=\n\S|\Z)", "", s, count=1, flags=re.S).replace(".PHONY: doctor install-cli", ".PHONY: doctor")
+m.write_text(s)
 w = Path("WORKLOG.md"); s = w.read_text()
 import datetime as dt
 s = s.replace("- 2026-09-13 Scaffold created from research-repo-setup template.",
